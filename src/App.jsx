@@ -8,6 +8,7 @@ import {
   NavbarSubLink,
 } from "./components/Navbar"
 import { Swiper, SwiperSlide } from "swiper/react"
+import { ToastContainer, toast } from "react-toastify"
 import { Navigation, Pagination, Scrollbar, A11y } from "swiper"
 import { useEffect, useRef, useState } from "react"
 import { useWindowSize } from "react-use"
@@ -19,7 +20,22 @@ import "swiper/css/a11y"
 import "swiper/css/controller"
 import "swiper/css/pagination"
 import "swiper/css/navigation"
+import 'react-toastify/dist/ReactToastify.css'
 
+function showToast() {
+  console.log('toasted')
+  toast('هنوز داریم روش کار می کنیم', {
+    position: "bottom-center",
+    theme: "dark",
+    rtl: true,
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+  });
+}
 
 function ToggleMenuButton({ toggleFn, ...props }) {
   return (
@@ -72,7 +88,19 @@ function App() {
 
   return (
     <>
+      <ToastContainer
+        position="bottom-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={true}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       <NavbarContainer ref={navbarContainerRef}>
+        {/* Todo: merge `NavbarHeader` and `NavbarContainer` into a single component */}
         <NavbarHeader>
           <h1 className="text-2xl flex">
             {width < screens["md"] && (
@@ -82,24 +110,24 @@ function App() {
             )}
             دبیرستان ملاصدرا
           </h1>
+          <NavbarLinksContainer 
+            isOpen={isNavbarOpen}
+            toggleOpen={() => setIsNavbarOpen(!isNavbarOpen)}
+          >
+            <NavbarLink text="معاونت">
+              <NavbarSubLink text="معاونت آموزشی" />
+              <NavbarSubLink text="معاونت پرورشی" />
+            </NavbarLink>
+            <NavbarLink text="درباره ما">
+              <NavbarSubLink text="معرفی" />
+              <NavbarSubLink text="امکانات" />
+            </NavbarLink>
+            <NavbarLink text="گالری" />
+            <NavbarLink text="تالار افتخارات" />
+            <NavbarLink text="نظرات" />
+          </NavbarLinksContainer>
           <Loginlink text="ورود"/>
         </NavbarHeader>
-        <NavbarLinksContainer
-          isOpen={isNavbarOpen}
-          toggleOpen={() => setIsNavbarOpen(!isNavbarOpen)}
-        >
-          <NavbarLink text="معاونت">
-            <NavbarSubLink text="معاونت آموزشی" />
-            <NavbarSubLink text="معاونت پرورشی" />
-          </NavbarLink>
-          <NavbarLink text="درباره ما">
-            <NavbarSubLink text="معرفی" />
-            <NavbarSubLink text="امکانات" />
-          </NavbarLink>
-          <NavbarLink text="گالری" />
-          <NavbarLink text="تالار افتخارات" />
-          <NavbarLink text="نظرات" />
-        </NavbarLinksContainer>
       </NavbarContainer>
 
       <div className="w-full" style={{marginTop: navbarCurrentHeight+"px"}}>
@@ -157,21 +185,21 @@ function App() {
           </h1>
           <div className="w-full flex flex-row justify-between px-5 py-4 my-5 drop-shadow-lg rounded-lg bg-white text-black">
             <span>تقویم آموزشی دهم و یازدهم</span>
-            <a href="#" className="text-blue-700">
+            <a href="#" className="text-blue-700" onClick={e=>{e.preventDefault();showToast()}}>
               <span className="ml-2">دانلود تقویم</span>
               <FontAwesomeIcon icon={faDownload} />
             </a>
           </div>
           <div className="w-full flex flex-row justify-between px-5 py-4 my-5 drop-shadow-lg rounded-lg bg-white text-black">
             <span>تقویم آموزشی دوازدهم</span>
-            <a href="#" className="text-blue-700">
+            <a href="#" className="text-blue-700" onClick={e=>{e.preventDefault();showToast()}}>
               <span className="ml-2">دانلود تقویم</span>
               <FontAwesomeIcon icon={faDownload} />
             </a>
           </div>
         </section>
       </div>
-      
+
     </>
   );
 }

@@ -42,7 +42,7 @@ export function NavbarLinksContainer({ children, isOpen, toggleOpen, ...props })
       }
       <div
         className="
-          flex flex-col fixed top-0 left-0 h-screen w-48 z-20 pr-3 pl-3 pt-4 pb-2 overflow-visible bg-blue-400
+          flex flex-col fixed top-0 left-0 h-screen w-48 z-20 overflow-visible bg-blue-400
           md:static md:flex-grow md:justify-center md:flex-row md:h-fit md:w-auto md:bg-transparent
         "
         style={{

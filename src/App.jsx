@@ -250,7 +250,7 @@ function App() {
         </section>
       </div>
       <section className="px-4 py-10 flex flex-col md:flex-row justify-center">
-        <div className="basis:1/2 mx-4">
+        <div className="basis-full md:basis-1/2 mx-4">
           <h1 className="text-3xl">مشخصات</h1>
           <div className="w-full flex flex-row justify-between px-5 py-4 my-5 drop-shadow-lg rounded-lg bg-white text-black">
             <FontAwesomeIcon icon={faLocation} className="ml-3" style={{verticalAlign: "middle", height: "24px"}} />
@@ -263,7 +263,9 @@ function App() {
             <span>09904237001</span>
           </div>
         </div>
-        <div className="basis-1/2 mx-4 bg-slate-100 h-96 rounded-lg" ref={mapContainerRef}></div>
+        <div className="basis-1/2 px-4 w-full rounded-lg">
+          <div className="w-full h-96" ref={mapContainerRef}></div>
+        </div>
       </section>
     </>
   );

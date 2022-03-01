@@ -11,7 +11,7 @@ export const NavbarContainer = forwardRef(({ children, ...props }, ref) => {
   return (
     <div 
       ref={ref} 
-      className="fixed top-0 z-10 left-0 right-0 flex flex-col bg-blue-500 text-white"
+      className="fixed top-0 z-[1001] left-0 right-0 flex flex-col bg-blue-500 text-white"
     >
       {children}
     </div>
@@ -35,14 +35,16 @@ export function NavbarLinksContainer({ children, isOpen, toggleOpen, ...props })
     <div className="flex flex-row text-white file:overflow-visible">
       {width < screens['md'] && isOpen &&
         <div 
-          className="fixed w-full h-screen z-10" 
+          className="fixed top-0 right-o left-0 bottom-0 z-[1000]" 
           style={{backgroundColor: "rgba(0,0,0,.7)"}}
           onClick={()=>toggleOpen()}
-        />
+        >
+          <div className="h-screen w-screen"></div>
+        </div>
       }
       <div
         className="
-          flex flex-col fixed top-0 left-0 h-screen w-48 z-20 overflow-visible bg-blue-400
+          flex flex-col fixed top-0 left-0 h-screen w-48 z-[10000] overflow-visible bg-blue-400
           md:static md:flex-grow md:justify-center md:flex-row md:h-fit md:w-auto md:bg-transparent
         "
         style={{

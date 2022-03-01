@@ -21,7 +21,7 @@ export const NavbarContainer = forwardRef(({ children, ...props }, ref) => {
 
 export function NavbarHeader({ children, ...props }) {
   return (
-    <div className="flex justify-between pt-3 pb-3 pr-8 pl-8">
+    <div className="flex justify-between py-3 px-4">
       {children}
     </div>
   )

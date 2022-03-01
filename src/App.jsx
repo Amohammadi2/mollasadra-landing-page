@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faBars, faDownload } from "@fortawesome/free-solid-svg-icons"
+import { faBars, faClipboard, faDownload, faLocation, faLocationPin, faPhone } from "@fortawesome/free-solid-svg-icons"
 import {
   NavbarContainer,
   NavbarHeader,
@@ -15,6 +15,10 @@ import { useWindowSize } from "react-use"
 import { screens } from "./shared/constants"
 import { ReactComponent as GrayWave } from "./assets/svgs/gray-wave.svg"
 import { ReactComponent as PurpleWave } from "./assets/svgs/purple-wave.svg"
+import { ReactComponent as LibraryIcon } from "./assets/svgs/library-icon.svg"
+import { ReactComponent as BallIcon } from "./assets/svgs/ball.svg"
+import L from "leaflet"
+import FeaturesBG  from "./assets/features-bg.png"
 import "swiper/css"
 import "swiper/css/a11y"
 import "swiper/css/controller"
@@ -22,8 +26,8 @@ import "swiper/css/pagination"
 import "swiper/css/navigation"
 import 'react-toastify/dist/ReactToastify.css'
 
+
 function showToast() {
-  console.log('toasted')
   toast('هنوز داریم روش کار می کنیم', {
     position: "bottom-center",
     theme: "dark",
@@ -41,7 +45,7 @@ function ToggleMenuButton({ toggleFn, ...props }) {
   return (
     <span
       className="
-        flex justify-center items-center ml-6 h-[40px] w-[40px]
+        flex justify-center items-center ml-3 h-[40px] w-[40px]
         transition-all duration-75 ease-out
         active:bg-[rgba(256,256,256,0.4)]
         hover:bg-[rgba(256,256,256,0.15)] rounded-full
@@ -86,6 +90,23 @@ function App() {
     setNavbarCurrentHeight(navbarContainerRef.current.clientHeight)
   }, [width])
 
+  const mapContainerRef = useRef(null)
+  const schoolLocation = [35.672362489915976, 51.489943005909694]
+
+  useEffect(() => {
+    if (mapContainerRef.current) {
+      const map = L.map(mapContainerRef.current, {
+        center: schoolLocation,
+        zoom: 16,
+      })
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?{foo}', {
+        foo: 'bar', attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      }).addTo(map);
+      L.marker(schoolLocation).addTo(map)
+		    .bindPopup('دبیرستان هیئت امنایی ملاصدرا').openPopup();
+    }
+  }, [mapContainerRef])
+
   return (
     <>
       <ToastContainer
@@ -102,13 +123,13 @@ function App() {
       <NavbarContainer ref={navbarContainerRef}>
         {/* Todo: merge `NavbarHeader` and `NavbarContainer` into a single component */}
         <NavbarHeader>
-          <h1 className="text-2xl flex">
+          <h1 className="text-xl leading-[34px] flex">
             {width < screens["md"] && (
               <ToggleMenuButton
                 toggleFn={() => setIsNavbarOpen(!isNavbarOpen)}
               />
             )}
-            دبیرستان ملاصدرا
+            دبیسرتان هیئت امنایی ملاصدرا
           </h1>
           <NavbarLinksContainer 
             isOpen={isNavbarOpen}
@@ -118,10 +139,8 @@ function App() {
               <NavbarSubLink text="معاونت آموزشی" />
               <NavbarSubLink text="معاونت پرورشی" />
             </NavbarLink>
-            <NavbarLink text="درباره ما">
-              <NavbarSubLink text="معرفی" />
-              <NavbarSubLink text="امکانات" />
-            </NavbarLink>
+            <NavbarLink text="درباره ما" />
+            <NavbarLink text="امکانات" />
             <NavbarLink text="گالری" />
             <NavbarLink text="تالار افتخارات" />
             <NavbarLink text="نظرات" />
@@ -183,6 +202,7 @@ function App() {
           <h1 className="text-4xl text-center md:text-right pt-12 mb-10">
             معاونت آموزشی
           </h1>
+          {/* Todo: turn this into a `DownloadBox` component */}
           <div className="w-full flex flex-row justify-between px-5 py-4 my-5 drop-shadow-lg rounded-lg bg-white text-black">
             <span>تقویم آموزشی دهم و یازدهم</span>
             <a href="#" className="text-blue-700" onClick={e=>{e.preventDefault();showToast()}}>
@@ -199,7 +219,52 @@ function App() {
           </div>
         </section>
       </div>
-
+      <div 
+        className="w-full min-h-[400px] flex justify-center items-center px-10 py-5 md:px-24 lg:px-56" 
+        style={{
+          backgroundImage: `url(${FeaturesBG})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundAttachment: "fixed"
+        }}
+      >
+        <section className="bg-[rgba(255,255,255,0.6)] rounded-lg drop-shadow-lg flex flex-col md:flex-row justify-center items-center w-full py-10 px-5">
+          <div className="w-full basis-4/12 px-3 py-5 m-2 flex flex-col items-center bg-[rgba(255,255,255,0.94)] drop-shadow-lg rounded-lg">
+            <BallIcon className="transition-all duration-75 ease-out hover:scale-125"/>
+            <p className="mt-5">
+              امکانات ورزشی
+            </p>
+          </div>
+          <div className="w-full basis-4/12 px-3 py-5 m-2 flex flex-col items-center bg-[rgba(255,255,255,0.94)] drop-shadow-lg rounded-lg">
+            <LibraryIcon className="transition-all duration-75 ease-out hover:scale-125"/>
+            <p className="mt-5">
+              کتابخانه
+            </p>
+          </div>
+          <div className="w-full basis-4/12 px-3 py-5 m-2 flex flex-col items-center bg-[rgba(255,255,255,0.94)] drop-shadow-lg rounded-lg">
+            <LibraryIcon className="transition-all duration-75 ease-out hover:scale-125"/>
+            <p className="mt-5">
+              امکانات ورزشی
+            </p>
+          </div>
+        </section>
+      </div>
+      <section className="px-4 py-10 flex flex-col md:flex-row justify-center">
+        <div className="basis:1/2 mx-4">
+          <h1 className="text-3xl">مشخصات</h1>
+          <div className="w-full flex flex-row justify-between px-5 py-4 my-5 drop-shadow-lg rounded-lg bg-white text-black">
+            <FontAwesomeIcon icon={faLocation} className="ml-3" style={{verticalAlign: "middle", height: "24px"}} />
+            <span>بزرگراه آیت ال... محلاتی، بلوار ابوذر، بین پل دوم و سوم، خیابان بوستان</span>
+          </div>
+          <div className="w-full flex flex-row justify-between px-5 py-4 my-5 drop-shadow-lg rounded-lg bg-white text-black">
+            <button>
+              <FontAwesomeIcon icon={faPhone} className="ml-3" style={{verticalAlign: "middle", height: "24px"}} />
+            </button>
+            <span>09904237001</span>
+          </div>
+        </div>
+        <div className="basis-1/2 mx-4 bg-slate-100 h-96 rounded-lg" ref={mapContainerRef}></div>
+      </section>
     </>
   );
 }

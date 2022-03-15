@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "build-srv": "cd src/server && cargo build --release && copy .\\target\\release\\server.exe ..\\..\\dist\\server.exe",
     "preview": "vite preview"
   },
   "dependencies": {

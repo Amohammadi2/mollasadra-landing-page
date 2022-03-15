@@ -71,7 +71,7 @@ function Loginlink({ text, ...props }) {
       target="_blank"
       className="
         flex justify-center items-center
-        cursor-pointer pr-5 pl-5 rounded-lg pb-1 box-border
+        cursor-pointer px-4 rounded-lg pb-1 box-border
         bg-white text-gray-900 hover:bg-gray-200 hover:drop-shadow-lg
       "
     >
@@ -125,26 +125,30 @@ function App() {
         {/* Todo: merge `NavbarHeader` and `NavbarContainer` into a single component */}
         <NavbarHeader>
           <h1 className="text-xl leading-[34px] flex">
-            {width < screens["md"] && (
-              <ToggleMenuButton
-                toggleFn={() => setIsNavbarOpen(!isNavbarOpen)}
-              />
-            )}
-            دبیسرتان هیئت امنایی ملاصدرا
+            {width < screens["md"] ? (
+              <>
+                <ToggleMenuButton
+                  toggleFn={() => setIsNavbarOpen(!isNavbarOpen)}
+                />
+                دبیرستان ملاصدرا
+              </>
+            ) : 'دبیرستان هیئت امنایی ملاصدرا'}
+            
           </h1>
           <NavbarLinksContainer 
             isOpen={isNavbarOpen}
             toggleOpen={() => setIsNavbarOpen(!isNavbarOpen)}
           >
-            <NavbarLink text="معاونت">
-              <NavbarSubLink text="معاونت آموزشی" />
-              <NavbarSubLink text="معاونت پرورشی" />
+            <NavbarLink to="#info" text="درباره ما" />
+            <NavbarLink to="#parvareshi" text="معاونت">
+              <NavbarSubLink to="#amoozeshi" text="معاونت آموزشی" />
+              <NavbarSubLink to="#parvareshi" text="معاونت پرورشی" />
             </NavbarLink>
-            <NavbarLink text="درباره ما" />
-            <NavbarLink text="امکانات" />
-            <NavbarLink text="گالری" />
+            <NavbarLink to="#features" text="امکانات" />
+            <NavbarLink to="#stats" text="مشخصات" />
+            {/* <NavbarLink text="گالری" />
             <NavbarLink text="تالار افتخارات" />
-            <NavbarLink text="نظرات" />
+            <NavbarLink text="نظرات" /> */}
           </NavbarLinksContainer>
           <Loginlink text="ورود"/>
         </NavbarHeader>
@@ -171,7 +175,7 @@ function App() {
         </Swiper>
       </div>
       {/* Review: should we turn this into a `ContentContainer` component? */}
-      <section className="mt-12 pr-12 pl-12 md:pr-28 md:pl-28 lg:pr-48 lg:pl-48 mb-7">
+      <section className="mt-12 pr-12 pl-12 md:pr-28 md:pl-28 lg:pr-48 lg:pl-48 mb-7" id="info">
         <h1 className="text-5xl text-center">
           درباره ما
         </h1>
@@ -182,7 +186,7 @@ function App() {
         </p>
       </section>
       {/* Review: should we turn this into a `SectionContainer` component? */}
-      <div className="relative mt-96 pb-52" style={{backgroundColor: "#FAFAFA"}}>
+      <div className="relative mt-96 pb-52" style={{backgroundColor: "#FAFAFA"}} id="parvareshi">
         <GrayWave className="absolute" style={{transform: "translateY(-210px)"}} />
         {/* Review: should we turn this into a `ContentContainer` component? */}
         <section className="pr-12 pl-12 md:pr-28 md:pl-28 lg:pr-48 lg:pl-48">
@@ -197,7 +201,7 @@ function App() {
         </section>
       </div>
       {/* Review: should we turn this into a `SectionContainer` component? */}
-      <div className="relative text-white pb-12" style={{backgroundColor: "#5F83F2"}}>
+      <div className="relative text-white pb-12" style={{backgroundColor: "#5F83F2"}} id="amoozeshi">
         <PurpleWave className="absolute z-0" style={{transform: "translateY(-110px)"}} />
         <section className="pr-12 pl-12 md:pr-28 md:pl-28 lg:pr-48 lg:pl-48">
           <h1 className="text-4xl text-center md:text-right pt-12 mb-10">
@@ -220,7 +224,8 @@ function App() {
           </div>
         </section>
       </div>
-      <div 
+      <div
+        id="features"
         className="w-full min-h-[400px] flex justify-center items-center px-10 py-5 md:px-24 lg:px-56" 
         style={{
           backgroundImage: `url(${FeaturesBG})`,
@@ -250,7 +255,7 @@ function App() {
           </div>
         </section>
       </div>
-      <section className="px-4 py-10 flex flex-col md:flex-row justify-center">
+      <section className="px-4 py-10 flex flex-col md:flex-row justify-center" id="stats">
         <div className="basis-full md:basis-1/2 mx-4">
           <h1 className="text-3xl">مشخصات</h1>
           { /* Todo: Turn this component into a `InfoItem` component */ }

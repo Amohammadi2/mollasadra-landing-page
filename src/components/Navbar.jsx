@@ -64,13 +64,6 @@ export function NavbarLink({ children, to, text, ...props }) {
   const subLinksContainerRef = useRef(null)
   const { width } = useWindowSize()
 
-  useClickAway(subLinksContainerRef, () => {
-    if (width >= screens['md']) {
-      console.log(width, screens['md'])
-      setShowSubLinks(false)
-    }
-  })
-
 
   return (
     <div className="relative mr-2 ml-2 cursor-pointer transition-all duration-75 ease-out">
@@ -107,6 +100,6 @@ export function NavbarLink({ children, to, text, ...props }) {
 
 export function NavbarSubLink({ to, text }) {
   return (
-    <a href={to} className="pr-3 pl-3 pt-2 pb-2 hover:text-blue-700">{text}</a>
+    <a onClick={e=>e.stopPropagation()} href={to} className="pr-3 pl-3 pt-2 pb-2 hover:text-blue-700">{text}</a>
   )
 }

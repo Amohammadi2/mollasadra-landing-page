@@ -17,6 +17,7 @@ import { ReactComponent as GrayWave } from "./assets/svgs/gray-wave.svg"
 import { ReactComponent as PurpleWave } from "./assets/svgs/purple-wave.svg"
 import { ReactComponent as LibraryIcon } from "./assets/svgs/library-icon.svg"
 import { ReactComponent as BallIcon } from "./assets/svgs/ball.svg"
+import { ReactComponent as SoroushPlus } from "./assets/svgs/soroush-plus.svg"
 import L from "leaflet"
 import FeaturesBG  from "./assets/features-bg.png"
 import "swiper/css"
@@ -252,6 +253,7 @@ function App() {
       <section className="px-4 py-10 flex flex-col md:flex-row justify-center">
         <div className="basis-full md:basis-1/2 mx-4">
           <h1 className="text-3xl">مشخصات</h1>
+          { /* Todo: Turn this component into a `InfoItem` component */ }
           <div className="w-full flex flex-row justify-between px-5 py-4 my-5 drop-shadow-lg rounded-lg bg-white text-black">
             <FontAwesomeIcon icon={faLocation} className="ml-3" style={{verticalAlign: "middle", height: "24px"}} />
             <span>بزرگراه آیت ال... محلاتی، بلوار ابوذر، بین پل دوم و سوم، خیابان بوستان</span>
@@ -261,6 +263,12 @@ function App() {
               <FontAwesomeIcon icon={faPhone} className="ml-3" style={{verticalAlign: "middle", height: "24px"}} />
             </button>
             <span>09904237001</span>
+          </div>
+          <div className="w-full flex flex-row justify-between px-5 py-4 my-5 drop-shadow-lg rounded-lg bg-white text-black">
+            <button>
+              <SoroushPlus style={{verticalAlign: "middle", height: "24px"}} />
+            </button>
+            <span>@mollasadra_highschool</span>
           </div>
         </div>
         <div className="basis-1/2 px-4 w-full rounded-lg">

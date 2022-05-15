@@ -1,18 +1,11 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faBars, faClipboard, faDownload, faLocation, faLocationPin, faPhone } from "@fortawesome/free-solid-svg-icons"
-import {
-  NavbarContainer,
-  NavbarHeader,
-  NavbarLinksContainer,
-  NavbarLink,
-  NavbarSubLink,
-} from "./components/Navbar"
+import { faBars, faDownload, faLocation, faPhone } from "@fortawesome/free-solid-svg-icons"
 import { Swiper, SwiperSlide } from "swiper/react"
 import { ToastContainer, toast } from "react-toastify"
 import { Navigation, Pagination, Scrollbar, A11y } from "swiper"
 import { useEffect, useRef, useState } from "react"
 import { useWindowSize } from "react-use"
-import { screens } from "./shared/constants"
+import { Navbar } from "./components/Navbar"
 import { ReactComponent as GrayWave } from "./assets/svgs/gray-wave.svg"
 import { ReactComponent as PurpleWave } from "./assets/svgs/purple-wave.svg"
 import { ReactComponent as LibraryIcon } from "./assets/svgs/library-icon.svg"
@@ -20,12 +13,15 @@ import { ReactComponent as BallIcon } from "./assets/svgs/ball.svg"
 import { ReactComponent as SoroushPlus } from "./assets/svgs/soroush-plus.svg"
 import L from "leaflet"
 import FeaturesBG  from "./assets/features-bg.png"
+import  * as slideImgs from "./assets/slide-show"
 import "swiper/css"
 import "swiper/css/a11y"
 import "swiper/css/controller"
 import "swiper/css/pagination"
 import "swiper/css/navigation"
 import 'react-toastify/dist/ReactToastify.css'
+import { SliderItem } from "./components/SliderItem"
+import usePageScroll from "./hooks/usePageScroll"
 
 
 function showToast() {
@@ -83,28 +79,31 @@ function Loginlink({ text, ...props }) {
 function App() {
   const [isNavbarOpen, setIsNavbarOpen] = useState(false);
   const { width } = useWindowSize();
+  const { scrollY } = usePageScroll();
 
   const navbarContainerRef = useRef(null)
   const [navbarCurrentHeight, setNavbarCurrentHeight] = useState(0)
 
   useEffect(() => {
-    setNavbarCurrentHeight(navbarContainerRef.current.clientHeight)
-  }, [width])
+    setNavbarCurrentHeight(navbarContainerRef.current.clientHeight-30)
+  }, [width, scrollY])
 
   const mapContainerRef = useRef(null)
   const schoolLocation = [35.672362489915976, 51.489943005909694]
 
   useEffect(() => {
     if (mapContainerRef.current) {
-      const map = L.map(mapContainerRef.current, {
-        center: schoolLocation,
-        zoom: 16,
-      })
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?{foo}', {
-        foo: 'bar', attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-      }).addTo(map);
-      L.marker(schoolLocation).addTo(map)
-		    .bindPopup('دبیرستان هیئت امنایی ملاصدرا').openPopup();
+      try { // throws error during HMR, thus is wrapped inside try-catch clause
+        const map = L.map(mapContainerRef.current, {
+          center: schoolLocation,
+          zoom: 16,
+        })
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?{foo}', {
+          foo: 'bar', attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+        L.marker(schoolLocation).addTo(map)
+          .bindPopup('دبیرستان هیئت امنایی ملاصدرا').openPopup();
+      } catch (e) {}
     }
   }, [mapContainerRef])
 
@@ -121,44 +120,11 @@ function App() {
         draggable
         pauseOnHover
       />
-      <NavbarContainer ref={navbarContainerRef}>
-        {/* Todo: merge `NavbarHeader` and `NavbarContainer` into a single component */}
-        <NavbarHeader>
-          <h1 className="text-xl leading-[34px] flex">
-            {width < screens["md"] ? (
-              <>
-                <ToggleMenuButton
-                  toggleFn={() => setIsNavbarOpen(!isNavbarOpen)}
-                />
-                دبیرستان ملاصدرا
-              </>
-            ) : 'دبیرستان هیئت امنایی ملاصدرا'}
-            
-          </h1>
-          <NavbarLinksContainer 
-            isOpen={isNavbarOpen}
-            toggleOpen={() => setIsNavbarOpen(!isNavbarOpen)}
-          >
-            <NavbarLink to="#info" text="درباره ما" />
-            <NavbarLink to="#parvareshi" text="معاونت">
-              <NavbarSubLink to="#amoozeshi" text="معاونت آموزشی" />
-              <NavbarSubLink to="#parvareshi" text="معاونت پرورشی" />
-            </NavbarLink>
-            <NavbarLink to="#features" text="امکانات" />
-            <NavbarLink to="#stats" text="مشخصات" />
-            {/* <NavbarLink text="گالری" />
-            <NavbarLink text="تالار افتخارات" />
-            <NavbarLink text="نظرات" /> */}
-          </NavbarLinksContainer>
-          <Loginlink text="ورود"/>
-        </NavbarHeader>
-      </NavbarContainer>
-
+      <Navbar ref={navbarContainerRef} />
       <div className="w-full" style={{marginTop: navbarCurrentHeight+"px"}}>
         <Swiper
           modules={[Navigation, Pagination, Scrollbar, A11y]}
           onSwiper={(swiper) => (window.swiper = swiper)}
-          slidesPerView={1}
           spaceBetween={0}
           navigation
           loop
@@ -166,12 +132,28 @@ function App() {
           pagination={{ clickable: true }}
           style={{height: `calc(100vh - ${navbarCurrentHeight}px)`}}
         >
-          <SwiperSlide className="w-96 flex justify-center items-center bg-slate-100 flex-shrink-0">hello world</SwiperSlide>
-          <SwiperSlide className="w-96 flex justify-center items-center bg-slate-200 flex-shrink-0">hello world</SwiperSlide>
-          <SwiperSlide className="w-96 flex justify-center items-center bg-slate-300 flex-shrink-0">hello world</SwiperSlide>
-          <SwiperSlide className="w-96 flex justify-center items-center bg-slate-400 flex-shrink-0">hello world</SwiperSlide>
-          <SwiperSlide className="w-96 flex justify-center items-center bg-slate-500 flex-shrink-0">hello world</SwiperSlide>
-          <SwiperSlide className="w-96 flex justify-center items-center bg-slate-600 flex-shrink-0">hello world</SwiperSlide>
+          {[
+            [3, 'some explanation'],
+            [1, 'some explanation'],
+            [15, 'some explanation'],
+            [2, 'some explanation'],
+            [4, 'some explanation'],
+            [5, 'some explanation'],
+            [6, 'some explanation'],
+            [7, 'some explanation'],
+            [8, 'some explanation'],
+            [9, 'some explanation'],
+            [11, 'some explanation'],
+            [12, 'some explanation'],
+            [13, 'some explanation'],
+            [14, 'some explanation']
+          ].map(([index, description]) => (
+            <SwiperSlide key={index}>
+              {({ isActive }) => (
+                <SliderItem index={index} description={description} isActive={isActive} />
+              )}
+            </SwiperSlide>
+          ))}
         </Swiper>
       </div>
       {/* Review: should we turn this into a `ContentContainer` component? */}

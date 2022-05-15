@@ -133,20 +133,16 @@ function App() {
           style={{height: `calc(100vh - ${navbarCurrentHeight}px)`}}
         >
           {[
-            [3, 'some explanation'],
-            [1, 'some explanation'],
-            [15, 'some explanation'],
-            [2, 'some explanation'],
-            [4, 'some explanation'],
-            [5, 'some explanation'],
-            [6, 'some explanation'],
-            [7, 'some explanation'],
-            [8, 'some explanation'],
-            [9, 'some explanation'],
-            [11, 'some explanation'],
-            [12, 'some explanation'],
-            [13, 'some explanation'],
-            [14, 'some explanation']
+            [3, 'اردوی نفرات برتر آموزشی و پرورشی'],
+            [15, 'مسجد جمکران'],
+            [2, 'اردوی آشنایی دماوند'],
+            [4, 'اردوی آشنایی دماوند'],
+            [6, 'هیئت محبان الائمه'],
+            [9, 'قرائت قرآن'],
+            [11, 'مراسمات'],
+            [12, 'سینما'],
+            [13, ''],
+            [14, 'اردوی نفرات برتر آموزشی و پرورشی']
           ].map(([index, description]) => (
             <SwiperSlide key={index}>
               {({ isActive }) => (
@@ -156,19 +152,8 @@ function App() {
           ))}
         </Swiper>
       </div>
-      {/* Review: should we turn this into a `ContentContainer` component? */}
-      <section className="mt-12 pr-12 pl-12 md:pr-28 md:pl-28 lg:pr-48 lg:pl-48 mb-7" id="info">
-        <h1 className="text-5xl text-center">
-          درباره ما
-        </h1>
-        <p className="mt-8 leading-loose">
-          دبیرستان ملاصدرا یکی از دبیرستان های دولتی منطقه ۱۴ است که با رویکرد علمی_پرورشی اداره می گردد. دغدغه اصلی اعضای هیئت امنا و عوامل اجرایی دبیرستان, تربیت دانش آموزان کوشا در مسائل آموزشی و توانمند در مسائل اعتقادی می باشد. 
-          در کنار فعالیتهای آموزشی که همه ساله منجر به کسب رتبه برتر امتحانات نهایی در بین مدارس سطح منطقه و موفقیت دانش آموزان در آزمون سراسری دانشگاه های کشور می شود, تلاش های پرورشی در سه سطح عام (کلیه دانش آموزان دبیرستان ), سطح خاص(فعالیتهای تفریحی اعتقادی در طرح عمار ) و هیئت محبان الائمه (رهروان امام و شهدا) می باشد.
-          از مجموعه فعالیت های پرورشی دبیرستان طرح مطالعاتی اندیشه برتر, با رویکرد مطالعه کتب شهید مطهری و آثار مقام معظم رهبری وکسب عناوین برتر مسابقات فرهنگی و هنری ادبی و قرآن و عترت دانش آموزی در سطح منطقه و شهر تهران و ...می باشد .
-        </p>
-      </section>
       {/* Review: should we turn this into a `SectionContainer` component? */}
-      <div className="relative mt-96 pb-52" style={{backgroundColor: "#FAFAFA"}} id="parvareshi">
+      <div className="relative mt-60 pb-52" style={{backgroundColor: "#FAFAFA"}} id="parvareshi">
         <GrayWave className="absolute" style={{transform: "translateY(-210px)"}} />
         {/* Review: should we turn this into a `ContentContainer` component? */}
         <section className="pr-12 pl-12 md:pr-28 md:pl-28 lg:pr-48 lg:pl-48">

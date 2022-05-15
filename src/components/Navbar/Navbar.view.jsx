@@ -5,11 +5,20 @@ import { AnimatePresence, motion } from "framer-motion";
 import Button from "../Button";
 import headerBg from "../../assets/header-bg.png";
 import Imam from "../../assets/imam.png";
-import { useHeaderState } from "./hooks";
+import {
+  useHeaderContentState,
+  useHeaderState,
+  useSidebarState,
+} from "./hooks";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
+import IconWrapper from "../IconWrapper";
 
 export default forwardRef(function NavbarView({ widndowWidth }, ref) {
-  const [sidebarActive, setSidebarActive] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const { showHeader } = useHeaderState();
+  const { showSidebar } = useSidebarState();
+  const { showFullText, showDate, decreaseFontSize } = useHeaderContentState();
 
   function redirectToPortal() {
     window.location = "https://mollasadraschool.ir/Account/Login";
@@ -18,11 +27,6 @@ export default forwardRef(function NavbarView({ widndowWidth }, ref) {
   function redirectToPreregistration() {
     window.location = "https://mollasadraschool.ir/PreRegistration/Level0";
   }
-
-  useEffect(() => {
-    if (widndowWidth <= screens["md"]) setSidebarActive(true);
-    else setSidebarActive(false);
-  }, [widndowWidth]);
 
   //#region Navbar Animation Variants
   const navLinkContainerVariants = {
@@ -59,6 +63,39 @@ export default forwardRef(function NavbarView({ widndowWidth }, ref) {
     </>
   );
 
+  const navLinks = (
+    <>
+      <motion.a
+        href="#parvareshi"
+        className="mx-4"
+        variants={navLinkitemVariants}
+      >
+        معاونت پرورشی
+      </motion.a>
+      <motion.a
+        href="#amoozeshi"
+        className="mx-4"
+        variants={navLinkitemVariants}
+      >
+        معاونت آموزشی
+      </motion.a>
+      <motion.a
+        href="#features"
+        className="mx-4"
+        variants={navLinkitemVariants}
+      >
+        امکانات
+      </motion.a>
+      <motion.a
+        href="#stats"
+        className="mx-4"
+        variants={navLinkitemVariants}
+      >
+        ارتباط با ما
+      </motion.a>
+    </>
+  )
+
   return (
     <motion.div
       className="fixed text-white top-0 right-0 left-0 z-[1000000]"
@@ -71,7 +108,7 @@ export default forwardRef(function NavbarView({ widndowWidth }, ref) {
     >
       <motion.div
         layout
-        className="px-12"
+        className={`${decreaseFontSize ? "px-1" : "px-12"}`}
         style={{ height: showHeader ? "160px" : "auto" }}
       >
         <motion.div
@@ -84,39 +121,43 @@ export default forwardRef(function NavbarView({ widndowWidth }, ref) {
           }
           initial={false}
         >
-          <AnimatePresence>
-            <div className="flex items-center">
-              <motion.img
-                initial={{ opacity: 0, scale: 0.3 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ type: "spring" }}
-                src={Imam}
-                alt="imam"
-                className="rounded-xl"
-              />
-              <motion.h1
-                className="text-3xl mr-3"
-                initial={{ y: -200 }}
-                animate={{ y: 0 }}
-                transition={{ type: "spring", delay: 0.4 }}
-              >
-                دبیرستان هیئت امنایی ملاصدرا
-              </motion.h1>
-            </div>
-            {showHeader && (
-              <motion.div
-                className="flex"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-              >
+          <div className="flex items-center">
+            <motion.img
+              initial={{ opacity: 0, scale: 0.3 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ type: "spring" }}
+              src={Imam}
+              alt="imam"
+              className="rounded-xl"
+            />
+            <motion.h1
+              className={`${
+                decreaseFontSize ? "text-xl mr-2" : "text-3xl"
+              } mr-3"`}
+              initial={{ y: -200 }}
+              animate={{ y: 0 }}
+              transition={{ type: "spring", delay: 0.4 }}
+            >
+              {showFullText
+                ? "دبیرستان هیئت امنایی ملاصدرا"
+                : "دبیرستان ملاصدرا"}
+            </motion.h1>
+          </div>
+          {showHeader && (
+            <motion.div
+              className="flex"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            >
+              {showDate && (
                 <div className="flex items-center justify-center border-2 px-3 border-blue-300 rounded-lg">
                   امروز: ۱۳۹۷/۱۰/۱۰
                 </div>
-                {navButtonGroup}
-              </motion.div>
-            )}
-          </AnimatePresence>
+              )}
+              {navButtonGroup}
+            </motion.div>
+          )}
         </motion.div>
       </motion.div>
       <motion.div
@@ -126,20 +167,40 @@ export default forwardRef(function NavbarView({ widndowWidth }, ref) {
         className="flex items-center justify-between py-4 px-2"
         style={{ height: showHeader ? "120px" : "unset" }}
       >
-        <div className="flex items-center">
-          <motion.a href="#" className="mx-4" variants={navLinkitemVariants}>
-            معاونت پرورشی
-          </motion.a>
-          <motion.a href="#" className="mx-4" variants={navLinkitemVariants}>
-            معاونت آموزشی
-          </motion.a>
-          <motion.a href="#" className="mx-4" variants={navLinkitemVariants}>
-            امکانات
-          </motion.a>
-          <motion.a href="#" className="mx-4" variants={navLinkitemVariants}>
-            ارتباط با ما
-          </motion.a>
+        <AnimatePresence>
+          {showSidebar && sidebarOpen && (
+            <motion.div initial={{opacity: 0}} animate={{opacity:1}} exit={{opacity:0}} className="fixed top-0 right-0 left-0 bottom-0 bg-[rgba(0,0,0,.4)]" onClick={()=>setSidebarOpen(false)}>
+              <motion.div initial={{x: 200}} animate={{x: 0}} exit={{x: 200}} className="w-[200px] h-screen flex flex-col bg-white text-black" onClick={e=>e.stopPropagation()}>
+                <div className="my-2 px-2">
+                  <a href="#parvareshi">معاونت پرورشی</a>
+                </div>
+                <div className="my-2 px-2">
+                  <a href="#amoozeshi">معاونت آموزشی</a>
+                </div>
+                <div className="my-2 px-2">
+                  <a href="#features">امکانات</a>
+                </div>
+                <div className="my-2 px-2">
+                  <a href="#stats">ارتباط با ما</a>
+                </div>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+        <div className="flex items-center px-2">
+          {!showSidebar ? (
+            navLinks
+          ) : (
+            <IconWrapper dark onClick={()=>setSidebarOpen(true)}>
+              <FontAwesomeIcon
+                icon={faBars}
+                className="text-xl"
+                style={{ alignContent: "middle" }}
+              />
+            </IconWrapper>
+          )}
         </div>
+
         <AnimatePresence>
           {!showHeader && (
             <motion.div

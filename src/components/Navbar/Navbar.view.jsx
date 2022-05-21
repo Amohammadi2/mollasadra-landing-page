@@ -70,7 +70,7 @@ export default forwardRef(function NavbarView({ widndowWidth }, ref) {
         className="mx-4"
         variants={navLinkitemVariants}
       >
-        معاونت پرورشی
+        درباره ما
       </motion.a>
       <motion.a
         href="#amoozeshi"
@@ -172,7 +172,7 @@ export default forwardRef(function NavbarView({ widndowWidth }, ref) {
             <motion.div initial={{opacity: 0}} animate={{opacity:1}} exit={{opacity:0}} className="fixed top-0 right-0 left-0 bottom-0 bg-[rgba(0,0,0,.4)]" onClick={()=>setSidebarOpen(false)}>
               <motion.div initial={{x: 200}} animate={{x: 0}} exit={{x: 200}} className="w-[200px] h-screen flex flex-col bg-white text-black" onClick={e=>e.stopPropagation()}>
                 <div className="my-2 px-2">
-                  <a href="#parvareshi">معاونت پرورشی</a>
+                  <a href="#parvareshi">درباره ما</a>
                 </div>
                 <div className="my-2 px-2">
                   <a href="#amoozeshi">معاونت آموزشی</a>

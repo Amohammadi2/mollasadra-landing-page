@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faBars, faDownload, faLocation, faPhone } from "@fortawesome/free-solid-svg-icons"
+import { faBars, faDownload, faEnvelope, faLocation, faPhone } from "@fortawesome/free-solid-svg-icons"
 import { Swiper, SwiperSlide } from "swiper/react"
 import { ToastContainer, toast } from "react-toastify"
 import { Navigation, Pagination, Scrollbar, A11y } from "swiper"
@@ -153,12 +153,12 @@ function App() {
         </Swiper>
       </div>
       {/* Review: should we turn this into a `SectionContainer` component? */}
-      <div className="relative mt-60 pb-52" style={{backgroundColor: "#FAFAFA"}} id="parvareshi">
-        <GrayWave className="absolute" style={{transform: "translateY(-210px)"}} />
+      <div className="relative mt-36 pb-10" style={{backgroundColor: "#FAFAFA"}} id="parvareshi">
+        {/* <GrayWave className="absolute" style={{transform: "translateY(-210px)"}} /> */}
         {/* Review: should we turn this into a `ContentContainer` component? */}
         <section className="pr-12 pl-12 md:pr-28 md:pl-28 lg:pr-48 lg:pl-48">
           <h1 className="text-4xl text-center md:text-right md:mr-24" style={{transform: "translateY(-80px)"}}>
-            معاونت پرورشی
+            درباره ما
           </h1>
           <p className="leading-loose">
             دبیرستان ملاصدرا یکی از دبیرستان های دولتی منطقه ۱۴ است که با رویکرد علمی_پرورشی اداره می گردد. دغدغه اصلی اعضای هیئت امنا و عوامل اجرایی دبیرستان, تربیت دانش آموزان کوشا در مسائل آموزشی و توانمند در مسائل اعتقادی می باشد. 
@@ -169,20 +169,20 @@ function App() {
       </div>
       {/* Review: should we turn this into a `SectionContainer` component? */}
       <div className="relative text-white pb-12" style={{backgroundColor: "#5F83F2"}} id="amoozeshi">
-        <PurpleWave className="absolute z-0" style={{transform: "translateY(-110px)"}} />
+        {/* <PurpleWave className="absolute z-0" style={{transform: "translateY(-110px)"}} /> */}
         <section className="pr-12 pl-12 md:pr-28 md:pl-28 lg:pr-48 lg:pl-48">
           <h1 className="text-4xl text-center md:text-right pt-12 mb-10">
             معاونت آموزشی
           </h1>
           {/* Todo: turn this into a `DownloadBox` component */}
-          <div className="w-full flex flex-row justify-between px-5 py-4 my-5 drop-shadow-lg rounded-lg bg-white text-black">
+          <div className="w-full flex flex-row justify-between px-5 py-4 my-5 drop-shadow-lg rounded-lg bg-white text-black text-sm md:text-base">
             <span>تقویم آموزشی دهم و یازدهم</span>
             <a href="#" className="text-blue-700" onClick={e=>{e.preventDefault();showToast()}}>
               <span className="ml-2">دانلود تقویم</span>
               <FontAwesomeIcon icon={faDownload} />
             </a>
           </div>
-          <div className="w-full flex flex-row justify-between px-5 py-4 my-5 drop-shadow-lg rounded-lg bg-white text-black">
+          <div className="w-full flex flex-row justify-between px-5 py-4 my-5 drop-shadow-lg rounded-lg bg-white text-black text-sm md:text-base">
             <span>تقویم آموزشی دوازدهم</span>
             <a href="#" className="text-blue-700" onClick={e=>{e.preventDefault();showToast()}}>
               <span className="ml-2">دانلود تقویم</span>
@@ -198,7 +198,8 @@ function App() {
           backgroundImage: `url(${FeaturesBG})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
-          backgroundAttachment: "fixed"
+          backgroundAttachment: "fixed",
+          overflow: "hidden"
         }}
       >
         <section className="bg-[rgba(255,255,255,0.6)] rounded-lg drop-shadow-lg flex flex-col md:flex-row justify-center items-center w-full py-10 px-5">
@@ -227,20 +228,26 @@ function App() {
           <h1 className="text-3xl">مشخصات</h1>
           { /* Todo: Turn this component into a `InfoItem` component */ }
           <div className="w-full flex flex-row justify-between px-5 py-4 my-5 drop-shadow-lg rounded-lg bg-white text-black">
+            <span>آدرس: بزرگراه آیت ال... محلاتی، بلوار ابوذر، بین پل دوم و سوم، خیابان بوستان</span>
             <FontAwesomeIcon icon={faLocation} className="ml-3" style={{verticalAlign: "middle", height: "24px"}} />
-            <span>بزرگراه آیت ال... محلاتی، بلوار ابوذر، بین پل دوم و سوم، خیابان بوستان</span>
           </div>
           <div className="w-full flex flex-row justify-between px-5 py-4 my-5 drop-shadow-lg rounded-lg bg-white text-black">
+            <span>شماره تلفن: 09904237001</span>
             <button>
               <FontAwesomeIcon icon={faPhone} className="ml-3" style={{verticalAlign: "middle", height: "24px"}} />
             </button>
-            <span>09904237001</span>
           </div>
           <div className="w-full flex flex-row justify-between px-5 py-4 my-5 drop-shadow-lg rounded-lg bg-white text-black">
+            <span>@mollasadra_highschool</span>
             <button>
               <SoroushPlus style={{verticalAlign: "middle", height: "24px"}} />
             </button>
-            <span>@mollasadra_highschool</span>
+          </div>
+          <div className="w-full flex flex-row justify-between px-5 py-4 my-5 drop-shadow-lg rounded-lg bg-white text-black">
+            <span>کد پستی: 1766814573</span>
+            <button>
+              <FontAwesomeIcon icon={faEnvelope} className="ml-3" style={{verticalAlign: "middle", height: "24px"}} />
+            </button>
           </div>
         </div>
         <div className="basis-1/2 px-4 w-full rounded-lg">

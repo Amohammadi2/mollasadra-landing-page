@@ -3,7 +3,7 @@ import { faBars, faDownload, faEnvelope, faLocation, faPhone } from "@fortawesom
 import { Swiper, SwiperSlide } from "swiper/react"
 import { ToastContainer, toast } from "react-toastify"
 import { Navigation, Pagination, Scrollbar, A11y } from "swiper"
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useRef, useState, Suspense } from "react"
 import { useWindowSize } from "react-use"
 import { Navbar } from "./components/Navbar"
 import { ReactComponent as GrayWave } from "./assets/svgs/gray-wave.svg"
@@ -22,6 +22,10 @@ import "swiper/css/navigation"
 import 'react-toastify/dist/ReactToastify.css'
 import { SliderItem } from "./components/SliderItem"
 import usePageScroll from "./hooks/usePageScroll"
+import FeatureCard from "./components/FeatureCard/FeatureCard.view"
+import Button from "./components/Button"
+
+
 
 
 function showToast() {
@@ -152,45 +156,30 @@ function App() {
           ))}
         </Swiper>
       </div>
-      {/* Review: should we turn this into a `SectionContainer` component? */}
-      <div className="relative mt-36 pb-10" style={{backgroundColor: "#FAFAFA"}} id="parvareshi">
-        {/* <GrayWave className="absolute" style={{transform: "translateY(-210px)"}} /> */}
-        {/* Review: should we turn this into a `ContentContainer` component? */}
-        <section className="pr-12 pl-12 md:pr-28 md:pl-28 lg:pr-48 lg:pl-48">
-          <h1 className="text-4xl text-center md:text-right md:mr-24" style={{transform: "translateY(-80px)"}}>
-            درباره ما
-          </h1>
+    
+      <section className="flex flex-col md:flex-row w-full" id="aboutus">
+        <div className="flex-grow basis-8/12 lg:basis-10/12 px-6 py-3">
+          <h1 className="text-3xl mb-5">درباره ما</h1>
           <p className="leading-loose">
-            دبیرستان ملاصدرا یکی از دبیرستان های دولتی منطقه ۱۴ است که با رویکرد علمی_پرورشی اداره می گردد. دغدغه اصلی اعضای هیئت امنا و عوامل اجرایی دبیرستان, تربیت دانش آموزان کوشا در مسائل آموزشی و توانمند در مسائل اعتقادی می باشد. 
-            در کنار فعالیتهای آموزشی که همه ساله منجر به کسب رتبه برتر امتحانات نهایی در بین مدارس سطح منطقه و موفقیت دانش آموزان در آزمون سراسری دانشگاه های کشور می شود, تلاش های پرورشی در سه سطح عام (کلیه دانش آموزان دبیرستان ), سطح خاص(فعالیتهای تفریحی اعتقادی در طرح عمار ) و هیئت محبان الائمه (رهروان امام و شهدا) می باشد.
-            از مجموعه فعالیت های پرورشی دبیرستان طرح مطالعاتی اندیشه برتر, با رویکرد مطالعه کتب شهید مطهری و آثار مقام معظم رهبری وکسب عناوین برتر مسابقات فرهنگی و هنری ادبی و قرآن و عترت دانش آموزی در سطح منطقه و شهر تهران و ...می باشد .
+            دبیرستان ملاصدرا یکی از دبیرستان های دولتی منطقه 14 که با رویکرد علمی - پرورشی به صورت هیئت امنایی اداره میگردد، دغدغه اصلی اعضاء هیئت امناء و کادراجرایی دبیرستان ، تربیت نسلی است تا به مراتبی از حیات طیبه ، در زمینه های فعالیت های علمی ، آموزشی ، پرورشی ، ورزشی و سبک زندگی اجتماعی رسیده باشد ؛ دانش آموزی که توانایی پیمودن گام های استوار در گام دوم انقلاب را داشته باشد؛بدین منظور فعالیت های زیر راهکارهای اصلی در دبیرستان ملاصدرا برای رسیدن به اهداف فوق می باشد. در زمینه های آموزشی با ارائه برنامه ، پیگیری های آموزشی ، جلسات مشاوره فردی و گروهی ، استفاده از اساتید مجرب و دلسوز ، جلسات آموزش خانواده و نهایتاً ایجاد ارتباط دوستانه بین اساتید و دانش آموزان و ... که منجر به تبدیل دبیرستان ملاصدرا به یک دبیرستان شاخص در بین مدارس منطقه 14 از لحاظ رتبه های برتر قبولی در کنکور سراسری و امتحانات نهائی گردیده است ؛ در بعد پرورشی نیز با ارائه برنامه های مهارتی مثل آموزشهای فتوشاپ ، فعالیت های کتابخوانی و جهادی ، کلاسهای اعتقادی،آموزش احکام،صحت قرائت نماز،طرح کلی اندیشه اسلامی مقام معظم رهبری (مدظله العالی) ، شرکت در مسابقات فرهنگی هنری ادبی دانش آموزان و کسب نتایج برتر در سطح منطقه و استان،برگزاری اردوهای علمی – تفریحی و ...؛ توانسته است گامی در جهت ایجاد مدرسه ای در تراز انقلاب اسلامی در جهت تربیت دانش آموزانی در تراز انقلاب اسلامی بردارد.
+            جهت مشاهده فعالیت های صورت گرفته در سال های قبل به کانال سروش دبیرستان به آدرس @mollasadra_highschool مراجعه کنید.
           </p>
-        </section>
-      </div>
-      {/* Review: should we turn this into a `SectionContainer` component? */}
-      <div className="relative text-white pb-12" style={{backgroundColor: "#5F83F2"}} id="amoozeshi">
-        {/* <PurpleWave className="absolute z-0" style={{transform: "translateY(-110px)"}} /> */}
-        <section className="pr-12 pl-12 md:pr-28 md:pl-28 lg:pr-48 lg:pl-48">
-          <h1 className="text-4xl text-center md:text-right pt-12 mb-10">
-            معاونت آموزشی
-          </h1>
-          {/* Todo: turn this into a `DownloadBox` component */}
-          <div className="w-full flex flex-row justify-between px-5 py-4 my-5 drop-shadow-lg rounded-lg bg-white text-black text-sm md:text-base">
-            <span>تقویم آموزشی دهم و یازدهم</span>
-            <a href="#" className="text-blue-700" onClick={e=>{e.preventDefault();showToast()}}>
-              <span className="ml-2">دانلود تقویم</span>
-              <FontAwesomeIcon icon={faDownload} />
-            </a>
+          <div className="py-7 flex justify-center">
+            <Button variant="action" onClick={()=>window.location="https://mollasadraschool.ir/PreRegistration/Level0"}>ورود به صفحه پیش‌ثبت‌نام</Button>
           </div>
-          <div className="w-full flex flex-row justify-between px-5 py-4 my-5 drop-shadow-lg rounded-lg bg-white text-black text-sm md:text-base">
-            <span>تقویم آموزشی دوازدهم</span>
-            <a href="#" className="text-blue-700" onClick={e=>{e.preventDefault();showToast()}}>
-              <span className="ml-2">دانلود تقویم</span>
-              <FontAwesomeIcon icon={faDownload} />
-            </a>
-          </div>
-        </section>
-      </div>
+        </div>
+        <div className="basis-4/12 lg:basis-2/12 py-3 md:px-1 bg-[rgb(245,245,245)]">
+          <h1 className="text-xl mr-2">لینک های مفید</h1>
+          <ul className="flex flex-col pr-12 md:pr-0">
+            <li className="mt-1"><a href="https://farsi.khamenei.ir/" className="text-blue-600" target="_blank">سایت مقام معظم رهبری</a></li>
+            <li className="mt-1"><a href="https://www.medu.ir/fa/" className="text-blue-600" target="_blank">سایت آموزش و پرورش</a></li>
+            <li className="mt-1"><a href="https://medu.ir/fa?ocode=90111401" className="text-blue-600">سایت آموزش و پرورش منطقه 14</a></li>
+            <li className="mt-1"><a href="https://hamgam.medu.ir/portal/home.php?r=login" className="text-blue-600" target="_blank">سایت همگام</a></li>
+            <li className="mt-1"><a href="https://irtextbook.com/Account/Login" className="text-blue-600" target="_blank">سایت ثبت نام کتاب</a></li>
+            <li className="mt-1"><a href="http://Splus.ir/heiat_mohebban" className="text-blue-600" target="_blank">کانال سروش هیئت</a></li>
+          </ul>
+        </div>
+      </section>
       <div
         id="features"
         className="w-full min-h-[400px] flex justify-center items-center px-10 py-5 md:px-24 lg:px-56" 
@@ -202,25 +191,10 @@ function App() {
           overflow: "hidden"
         }}
       >
-        <section className="bg-[rgba(255,255,255,0.6)] rounded-lg drop-shadow-lg flex flex-col md:flex-row justify-center items-center w-full py-10 px-5">
-          <div className="w-full basis-4/12 px-3 py-5 m-2 flex flex-col items-center bg-[rgba(255,255,255,0.94)] drop-shadow-lg rounded-lg">
-            <BallIcon className="transition-all duration-75 ease-out hover:scale-125"/>
-            <p className="mt-5">
-              امکانات ورزشی
-            </p>
-          </div>
-          <div className="w-full basis-4/12 px-3 py-5 m-2 flex flex-col items-center bg-[rgba(255,255,255,0.94)] drop-shadow-lg rounded-lg">
-            <LibraryIcon className="transition-all duration-75 ease-out hover:scale-125"/>
-            <p className="mt-5">
-              کتابخانه
-            </p>
-          </div>
-          <div className="w-full basis-4/12 px-3 py-5 m-2 flex flex-col items-center bg-[rgba(255,255,255,0.94)] drop-shadow-lg rounded-lg">
-            <LibraryIcon className="transition-all duration-75 ease-out hover:scale-125"/>
-            <p className="mt-5">
-              امکانات ورزشی
-            </p>
-          </div>
+        <section className="bg-[rgba(255,255,255,0.6)] rounded-lg drop-shadow-lg flex flex-col md:flex-row w-full py-10 px-5">
+          <FeatureCard title="امکانات ورزشی" description="زمین فوتبال و سالن ورزشی مجهز، زمین والیبال، بدمینتون و میز تنیس روی میز" Icon={<BallIcon />} />
+          <FeatureCard title="امکانات رفاهی" description="" Icon={<BallIcon />} />
+          <FeatureCard title="سامانه آموزشی پشتیبان" description="کلاس های هوشمند، وب سایت و امکان برگزاری جلسات آنلاین زنده از طریق امکانات داخلی سایت مدرسه" softwareService />
         </section>
       </div>
       <section className="px-4 py-10 flex flex-col md:flex-row justify-center" id="stats">

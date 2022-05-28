@@ -24,9 +24,10 @@ export default forwardRef(function NavbarView({ widndowWidth }, ref) {
     window.location = "https://mollasadraschool.ir/Account/Login";
   }
 
-  function redirectToPreregistration() {
-    window.location = "https://mollasadraschool.ir/PreRegistration/Level0";
+  function goToAboutUS() {
+    window.location.hash = "aboutus";
   }
+
 
   //#region Navbar Animation Variants
   const navLinkContainerVariants = {
@@ -56,7 +57,7 @@ export default forwardRef(function NavbarView({ widndowWidth }, ref) {
 
   const navButtonGroup = (
     <>
-      <Button onClick={redirectToPreregistration}>پیش‌ثبت نام</Button>
+      <Button onClick={goToAboutUS}>پیش‌ثبت نام</Button>
       <Button onClick={redirectToPortal} variant="primary">
         ورود
       </Button>
@@ -66,18 +67,11 @@ export default forwardRef(function NavbarView({ widndowWidth }, ref) {
   const navLinks = (
     <>
       <motion.a
-        href="#parvareshi"
+        href="#aboutus"
         className="mx-4"
         variants={navLinkitemVariants}
       >
         درباره ما
-      </motion.a>
-      <motion.a
-        href="#amoozeshi"
-        className="mx-4"
-        variants={navLinkitemVariants}
-      >
-        معاونت آموزشی
       </motion.a>
       <motion.a
         href="#features"
@@ -172,10 +166,7 @@ export default forwardRef(function NavbarView({ widndowWidth }, ref) {
             <motion.div initial={{opacity: 0}} animate={{opacity:1}} exit={{opacity:0}} className="fixed top-0 right-0 left-0 bottom-0 bg-[rgba(0,0,0,.4)]" onClick={()=>setSidebarOpen(false)}>
               <motion.div initial={{x: 200}} animate={{x: 0}} exit={{x: 200}} className="w-[200px] h-screen flex flex-col bg-white text-black" onClick={e=>e.stopPropagation()}>
                 <div className="my-2 px-2">
-                  <a href="#parvareshi">درباره ما</a>
-                </div>
-                <div className="my-2 px-2">
-                  <a href="#amoozeshi">معاونت آموزشی</a>
+                  <a href="#aboutus">درباره ما</a>
                 </div>
                 <div className="my-2 px-2">
                   <a href="#features">امکانات</a>
@@ -209,7 +200,9 @@ export default forwardRef(function NavbarView({ widndowWidth }, ref) {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
             >
-              {navButtonGroup}
+              <Button onClick={redirectToPortal} variant="default" styles={d=>d.extend('w-[70px]')}>
+                ورود
+              </Button>
             </motion.div>
           )}
         </AnimatePresence>
